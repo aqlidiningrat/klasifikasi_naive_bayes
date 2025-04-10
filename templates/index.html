@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>klasifikasi_naive_bayes</title>
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}" />
+  </head>
+  <body>
+    <section class="main swiper mySwiper">
+      <div class="wrapper swiper-wrapper">
+        {%if lenFaces%}
+          {%if lenFaces == '0'%}
+          <div class="slide swiper-slide">
+            <img src="{{url_for('static',filename='images/3.jpg')}}" alt="" class="image" />
+            <div class="image-data">
+              <img src="{{url_for('displayOutputImage',filename=filenameOutputImage)}}" alt="" width="50%" height="50%"><br>
+              <span class="text">tidakAda wajahTerdeteksi</span>
+              <h2>cobaFile GambarLain!!</h2>
+              <form class="" action="" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" value="" class="button" required autocomplete="off">
+                <button type="submit" class="button" name="button">mulaiKlasifikasi</button>
+              </form>
+            </div>
+          </div>
+          <!-- Source Code -->
+          <div class="slide swiper-slide">
+            <img src="{{url_for('static',filename='images/2.jpg')}}" alt="" class="image" />
+            <div class="image-data">
+              <span class="text">Yang Judul Penelitiannya Pengolahan Citra atau Computer Vision, Kalau Payah Buat Aplikasinya</span>
+              <h2>Aplikasi ini diberikan kepada yang berhak menerimanya. Dengan Akurasi yang Seadanya Paling tidak Bisa Membantu Meringankan</h2>
+              <a href="#" class="button"><i>Source Code</i></a>
+            </div>
+          </div>
+          <!-- Link Dataset -->
+          <div class="slide swiper-slide">
+            <img src="{{url_for('static',filename='images/3.jpg')}}" alt="" class="image" />
+            <div class="image-data">
+              <span class="text">Akurasinya Parah Kali Ni. Nanti Datasetnya diCleaning Ya, diReduksi Abes Itu diBinning</span>
+              <h2>Datasetnya Didownload di</h2>
+              <a target="_blank" href="https://www.kaggle.com/datasets/gmlmrinalini/manwomandetection" class="button">Link Dataset</a>
+            </div>
+          </div>
+
+          {%elif lenFaces == 'yangDiupload bukanFileGambar'%}
+          <div class="slide swiper-slide">
+            <img src="{{url_for('static',filename='images/2.jpg')}}" alt="" class="image" />
+            <div class="image-data">
+              <span class="text">{{filename}}</span>
+              <h2>Yang Diupload Bukan FileGambar</h2>
+              <form class="" action="" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" value="" class="button" required autocomplete="off">
+                <button type="submit" class="button" name="button">mulaiKlasifikasi</button>
+              </form>
+            </div>
+          </div>
+          {%else%}
+          <div class="slide swiper-slide">
+            <img src="{{url_for('static',filename='images/3.jpg')}}" alt="" class="image" />
+            <div class="image-data">
+              <img src="{{url_for('displayOutputImage',filename=filenameOutputImage)}}" alt="" width="50%" height="50%"><br>
+              <span class="text">Geser untuk melihat wajah-wajahnya</span>
+              <h2>{{lenFaces}} Wajah Terdeteksi</h2>
+              <a href="{{url_for('downloadOutputImage',filename=filenameOutputImage)}}" class="button">downloadHasilKlasifikasi</a>
+              <form class="" action="" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" value="" class="button" required autocomplete="off">
+                <button type="submit" class="button" name="button">mulaiKlasifikasi</button>
+              </form>
+            </div>
+          </div>
+          {%for i in ind%}
+          <div class="slide swiper-slide">
+            <img src="{{url_for('static',filename='images/3.jpg')}}" alt="" class="image" />
+            <div class="image-data">
+              <img src="{{url_for('displayFaces',filename='face'+seriesLabels[0][i]+'_'+filename)}}" alt="" width="50%" height="50%"><br>
+              <span class="text">Wajah {{seriesLabels[0][i]}}</span>
+              <h2>{{seriesLabels[1][i]}}</h2>
+              <a href="{{url_for('downloadFaces',filename='face'+seriesLabels[0][i]+'_'+filename)}}" class="button">downloadWajah {{seriesLabels[0][i]}}</a>
+            </div>
+          </div>
+          {%endfor%}
+          <!-- Source Code -->
+          <div class="slide swiper-slide">
+            <img src="{{url_for('static',filename='images/2.jpg')}}" alt="" class="image" />
+            <div class="image-data">
+              <span class="text">Yang Judul Penelitiannya Pengolahan Citra atau Computer Vision, Kalau Payah Buat Aplikasinya</span>
+              <h2>Aplikasi ini diberikan kepada yang berhak menerimanya. Dengan Akurasi yang Seadanya Paling tidak Bisa Membantu Meringankan</h2>
+              <a href="#" class="button"><i>Source Code</i></a>
+            </div>
+          </div>
+          <!-- Link Dataset -->
+          <div class="slide swiper-slide">
+            <img src="{{url_for('static',filename='images/3.jpg')}}" alt="" class="image" />
+            <div class="image-data">
+              <span class="text">Akurasinya Parah Kali Ni. Nanti Datasetnya diCleaning Ya, diReduksi Abes Itu diBinning</span>
+              <h2>Datasetnya Didownload di</h2>
+              <a target="_blank" href="https://www.kaggle.com/datasets/gmlmrinalini/manwomandetection" class="button">Link Dataset</a>
+            </div>
+          </div>
+          {%endif%}
+        {%else%}
+        <div class="slide swiper-slide">
+          <img src="{{url_for('static',filename='images/1.jpg')}}" alt="" class="image" />
+          <div class="image-data">
+            <span class="text">Menggunakan Metode <i>Naive Bayes Classifier</i></span>
+            <h2>Klasifikasi Jenis Kelamin Citra Wajah</h2>
+            <form class="" action="" method="post" enctype="multipart/form-data">
+              <input type="file" name="file" value="" class="button" required autocomplete="off">
+              <button type="submit" class="button" name="button">mulaiKlasifikasi</button>
+            </form>
+          </div>
+        </div>
+        <div class="slide swiper-slide">
+          <img src="{{url_for('static',filename='images/2.jpg')}}" alt="" class="image" />
+          <div class="image-data">
+            <span class="text">Yang Judul Penelitiannya Pengolahan Citra atau Computer Vision, Kalau Payah Buat Aplikasinya</span>
+            <h2>Aplikasi ini diberikan kepada yang berhak menerimanya. Dengan Akurasi yang Seadanya Paling tidak Bisa Membantu Meringankan</h2>
+            <a href="#" class="button"><i>Source Code</i></a>
+          </div>
+        </div>
+        <div class="slide swiper-slide">
+          <img src="{{url_for('static',filename='images/3.jpg')}}" alt="" class="image" />
+          <div class="image-data">
+            <span class="text">Akurasinya Parah Kali Ni. Nanti Datasetnya diCleaning Ya, diReduksi Abes Itu diBinning</span>
+            <h2>Datasetnya Didownload di</h2>
+            <a target="_blank" href="https://www.kaggle.com/datasets/gmlmrinalini/manwomandetection" class="button">Link Dataset</a>
+          </div>
+        </div>
+        {%endif%}
+      </div>
+      <div class="swiper-button-next nav-btn"></div>
+      <div class="swiper-button-prev nav-btn"></div>
+      <div class="swiper-pagination"></div>
+    </section>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    </script>
+  </body>
+</html>
