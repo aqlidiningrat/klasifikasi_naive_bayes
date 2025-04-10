@@ -1,0 +1,2 @@
+# klasifikasi_naive_bayes
+awasError, kalauSalahNgambilnyaPastiError
